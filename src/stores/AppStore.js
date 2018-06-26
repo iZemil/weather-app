@@ -11,13 +11,14 @@ class AppStore {
         weather: null,
         isFetching: false
     };
-    @observable cities = ['Chelyabinsk', 'moscow', 'london'];
+    @observable cities = JSON.parse(localStorage.getItem('owm_cities')) || [];
 
     @computed get temperature() {
         return this.state.weather ? Math.round(this.state.weather.temp) : '–';
     }
 
     searchCity(city) {
+        this.state.isFetching = false;
         this.state.currentCity = city || this.state.searchCity;
         city = city || this.state.currentCity;
 
@@ -75,11 +76,14 @@ class AppStore {
             return false;
         }
 
+
         this.cities.push(this.state.currentCity);
+        localStorage.setItem('owm_cities', JSON.stringify(this.cities));
     }
 
     deleteCity(city) {
-        this.cities = this.cities.filter(it => it !== city)
+        this.cities = this.cities.filter(it => it !== city);
+        localStorage.setItem('owm_cities', JSON.stringify(this.cities));
     }
 }
 

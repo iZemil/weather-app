@@ -45,7 +45,8 @@ export default class App extends Component {
             <div className="app">
                 <div className="container">
                     <h1 className="current-city">
-                        <Icon name='compass outline' link title="Current city" /> { isFetching ? currentCity : ' — ' }{' '}
+                        <Icon name='compass outline' link title="Current city" />
+                        <div className="current-city__name">{ isFetching ? currentCity : ' — ' }</div>
                         <Icon name={~appStore.cities.indexOf(currentCity) ? 'star' : 'star outline'} link title="Favorites" onClick={ this.handleAddCity } />
                     </h1>
                     <div className="current-weather">

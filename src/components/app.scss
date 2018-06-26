@@ -22,6 +22,11 @@ body {
   margin-bottom: 40px;
   font-family: 'Montserrat', sans-serif;
   text-align: center;
+
+  &__name {
+    display: inline-block;
+    padding: 0 10px;
+  }
 }
 
 .current-weather {
