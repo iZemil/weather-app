@@ -4,6 +4,9 @@ import {observer} from 'mobx-react';
 
 @observer
 export default class App extends Component {
+    componentDidMount() {
+        this.props.appStore.mountApp();
+    }
 
     handleChangeCity = (e) => {
         const value = e.target.value;

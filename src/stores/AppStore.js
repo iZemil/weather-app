@@ -1,11 +1,14 @@
 import { observable } from 'mobx';
-import { currentWeatherByCity } from "../api/weather";
+import {currentWeatherByCity, currentWeatherByCoordinates} from "../api/weather";
 
 
 class AppStore {
     @observable state = {
-        searchCity: 'chelyabinsk',
-        currentCity: ''
+        searchCity: '',
+        currentCity: '',
+        lat: '',
+        lon: '',
+        weather: null
     };
     @observable cities = ['chelyabinsk', 'moscow', 'london'];
 
@@ -19,8 +22,29 @@ class AppStore {
             .catch((err) => console.error('searchCity: ', err));
     }
 
+    mountApp() {
+        navigator.geolocation.getCurrentPosition((position) => {
+            this.setCurrentPosition(position.coords);
+        });
+    }
+
+    setCurrentPosition(coords) {
+        this.state.lat = coords.latitude;
+        this.state.lon = coords.longitude;
+
+        fetch(currentWeatherByCoordinates(this.state.lat, this.state.lon))
+            .then((res) => res.json())
+            .then((json) => this.setWeather(json))
+            .catch((err) => console.error('initial: ', err));
+    }
+
     getForecast(city) {
         this.searchCity(city);
+    }
+
+    setWeather(json) {
+        this.state.currentCity = json.name;
+        this.state.weather = json.main;
     }
 
     addCity() {
