@@ -10,7 +10,7 @@ class AppStore {
         lon: '',
         weather: null
     };
-    @observable cities = ['chelyabinsk', 'moscow', 'london'];
+    @observable cities = ['Chelyabinsk', 'moscow', 'london'];
 
     searchCity(city) {
         this.state.currentCity = city || this.state.searchCity;

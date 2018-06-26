@@ -1,3 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&subset=cyrillic');
+@import '~semantic-ui-css/semantic.css';
+
+
 body {
-  background: seagreen;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f6d365;
+  background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+  cursor: default;
+}
+
+.app {
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 980px;
+  margin: auto;
+}
+
+.current-city {
+  margin-bottom: 40px;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+}
+
+.current-weather {
+  position: relative;
+  margin: 0 auto 40px;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 35px solid #faffe3;
+  border-radius: 100%;
+  font-size: 80px;
+  background-color: #c1e040;
+  background-image: linear-gradient(to bottom, #c1e040 0%, #eec933 100%);
+  color: #fff;
+}
+
+.city-form {
+  max-width:480px;
+  margin: 0 auto 20px;
+
+  &__input {
+    margin-right: 10px;
+  }
+}
+
+.cities-list {
+  max-width:480px;
+  margin:auto;
+  padding: 0;
+
+  &__item {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 30px;
+    line-height: 1.4;
+
+    &-name {
+      text-transform: capitalize;
+    }
+  }
+}
+
+.preloader {
+  height: 60px;
+  width: 60px;
+  margin: 40vh auto;
+  border: 5px solid rgba(60,60,180,0.45);
+  border-top: 5px solid rgb(60,60,180);
+  border-radius: 50%;
+  animation: rotate 0.8s infinite linear;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

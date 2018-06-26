@@ -34,6 +34,24 @@ module.exports = {
                     use: [ 'css-loader', 'postcss-loader', "sass-loader" ]
                 })
             },
+
+            {
+                test: /\.(jpg|png|gif|svg)$/,
+                use: [
+                    {
+                        loader: 'file-loader'
+                    }
+                ]
+            },
+
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                use: [
+                    {
+                        loader: 'file-loader'
+                    }
+                ]
+            }
         ],
     },
 

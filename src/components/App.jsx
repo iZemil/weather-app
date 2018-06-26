@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {observer} from 'mobx-react';
+import { Icon, Input, Button } from 'semantic-ui-react';
+import { observer } from 'mobx-react';
+import Loader from './Loader';
 import './app.scss';
 
 @observer
@@ -36,33 +38,45 @@ export default class App extends Component {
         const weather = state.weather;
 
         return (
-            <div>
-                <div>
-                    Current city: { state.currentCity }
-                    <button onClick={ this.handleAddCity }>Add city to favorites</button>
-                </div>
-                <div>
-                    <input
-                        placeholder="Write city name"
-                        name="city"
-                        value={state.searchCity}
-                        onChange={ this.handleChangeCity }
-                    />
-                    <button onClick={this.handleSearchCity}>Search</button>
-                </div>
-                <ul>
-                    {
-                        appStore.cities.map((city, index) =>
-                            <li key={ 'key-' + index }>
-                                { city }
-                                <button onClick={ () => this.handleGetForecast(city) }>get forecast</button>
-                                <button onClick={ () => this.handleDeleteCity(city) }>delete</button>
-                            </li>)
-                    }
-                </ul>
-                <div>
-                    Current weather:
-                    { weather ? appStore.state.weather.temp : 'loading...' }
+            <div className="app">
+                <div className="container">
+                    <h1 className="current-city">
+                        <Icon name='compass outline' link title="Current city" /> { state.currentCity }{' '}
+                        <Icon name='star outline' link title="Favorites" onClick={ this.handleAddCity } />
+                    </h1>
+                    <div className="current-weather">
+                        { weather ? <span>{ appStore.state.weather.temp }<sup>o</sup></span> : <Loader /> }
+                    </div>
+                    <div className="city-form">
+                        <Input
+                            placeholder="Write city name..."
+                            name="city"
+                            className="city-form__input"
+                            value={state.searchCity}
+                            onChange={ this.handleChangeCity }
+                        />
+                        <Button className="btn" onClick={this.handleSearchCity}>Search</Button>
+                    </div>
+                    <ul className="cities-list">
+                        {
+                            appStore.cities.map((city, index) =>
+                                <li key={ 'key-' + index } className="cities-list__item">
+                                    <span className="cities-list__item-name">– { city }</span>
+                                    <span className="cities-list__item-utils">
+                                        <Icon
+                                            name="search"
+                                            link title="Get forecast"
+                                            onClick={ () => this.handleGetForecast(city) }
+                                        />
+                                        <Icon
+                                            name="delete"
+                                            link title="Delete"
+                                            onClick={ () => this.handleDeleteCity(city) }
+                                        />
+                                    </span>
+                                </li>)
+                        }
+                    </ul>
                 </div>
             </div>
         );
