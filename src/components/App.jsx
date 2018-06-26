@@ -35,24 +35,28 @@ export default class App extends Component {
     render() {
         const { appStore } = this.props;
         const state = appStore.state;
-        const weather = state.weather;
+        const {
+            isFetching,
+            searchCity,
+            currentCity
+        } = state;
 
         return (
             <div className="app">
                 <div className="container">
                     <h1 className="current-city">
-                        <Icon name='compass outline' link title="Current city" /> { state.currentCity }{' '}
-                        <Icon name='star outline' link title="Favorites" onClick={ this.handleAddCity } />
+                        <Icon name='compass outline' link title="Current city" /> { isFetching ? currentCity : ' — ' }{' '}
+                        <Icon name={~appStore.cities.indexOf(currentCity) ? 'star' : 'star outline'} link title="Favorites" onClick={ this.handleAddCity } />
                     </h1>
                     <div className="current-weather">
-                        { weather ? <span>{ appStore.state.weather.temp }<sup>o</sup></span> : <Loader /> }
+                        { isFetching ? <span>{ appStore.temperature }<sup>o</sup></span> : <Loader /> }
                     </div>
                     <div className="city-form">
                         <Input
                             placeholder="Write city name..."
                             name="city"
                             className="city-form__input"
-                            value={state.searchCity}
+                            value={searchCity}
                             onChange={ this.handleChangeCity }
                         />
                         <Button className="btn" onClick={this.handleSearchCity}>Search</Button>
