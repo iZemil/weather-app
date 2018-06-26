@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Необходимо реализовать погодное веб-приложение",
   "scripts": {
+    "prod": "webpack --mode production",
     "dev": "webpack-dev-server --mode development --open",
     "dev:build": "webpack --mode development"
   },
