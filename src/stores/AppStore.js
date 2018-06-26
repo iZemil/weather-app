@@ -31,6 +31,10 @@ class AppStore {
     mountApp() {
         navigator.geolocation.getCurrentPosition((position) => {
             this.setCurrentPosition(position.coords);
+        }, (error) => {
+            if (error.code == error.PERMISSION_DENIED) {
+                this.notFound();
+            }
         });
     }
 
