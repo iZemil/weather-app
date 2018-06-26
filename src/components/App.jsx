@@ -33,6 +33,7 @@ export default class App extends Component {
     render() {
         const { appStore } = this.props;
         const state = appStore.state;
+        const weather = state.weather;
 
         return (
             <div>
@@ -59,6 +60,10 @@ export default class App extends Component {
                             </li>)
                     }
                 </ul>
+                <div>
+                    Current weather:
+                    { weather ? appStore.state.weather.temp : 'loading...' }
+                </div>
             </div>
         );
     }

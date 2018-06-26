@@ -13,7 +13,7 @@ class AppStore {
     @observable cities = ['chelyabinsk', 'moscow', 'london'];
 
     searchCity(city) {
-        this.state.currentCity = this.state.searchCity;
+        this.state.currentCity = city || this.state.searchCity;
         city = city || this.state.currentCity;
 
         fetch(currentWeatherByCity(city))
