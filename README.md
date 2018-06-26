@@ -1,6 +1,7 @@
 # Weather app
 
-
+- install nodejs for npm command
+- dev-server: `npm run dev`
 
 
 ## ТЗ: Необходимо реализовать погодное веб-приложение
