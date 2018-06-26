@@ -1,0 +1,1 @@
+export const OWM_API_TOKEN = "1dc114432295a0cac84e4f93a6a708c4";

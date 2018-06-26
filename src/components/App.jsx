@@ -15,6 +15,10 @@ export default class App extends Component {
         this.props.appStore.searchCity();
     }
 
+    handleGetForecast = (city) => {
+        this.props.appStore.getForecast(city);
+    }
+
     handleDeleteCity = (city) => {
         this.props.appStore.deleteCity(city);
     }
@@ -37,6 +41,7 @@ export default class App extends Component {
                     <input
                         placeholder="Write city name"
                         name="city"
+                        value={state.searchCity}
                         onChange={ this.handleChangeCity }
                     />
                     <button onClick={this.handleSearchCity}>Search</button>
@@ -46,6 +51,7 @@ export default class App extends Component {
                         appStore.cities.map((city, index) =>
                             <li key={ 'key-' + index }>
                                 { city }
+                                <button onClick={ () => this.handleGetForecast(city) }>get forecast</button>
                                 <button onClick={ () => this.handleDeleteCity(city) }>delete</button>
                             </li>)
                     }
