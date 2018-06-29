@@ -13,7 +13,7 @@ module.exports = {
         path: path.resolve(__dirname, 'public'),
     },
 
-    devtool: 'inline',
+    devtool: 'inline-source-map',
 
     resolve: {
         extensions: ['.js', '.jsx'],
