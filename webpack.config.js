@@ -39,7 +39,10 @@ module.exports = {
                 test: /\.(jpg|png|gif|svg)$/,
                 use: [
                     {
-                        loader: 'file-loader'
+                        loader: 'file-loader',
+                        options: {
+                            outputPath: '/assets/images'
+                        }
                     }
                 ]
             },
@@ -48,7 +51,10 @@ module.exports = {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 use: [
                     {
-                        loader: 'file-loader'
+                        loader: 'file-loader',
+                        options: {
+                            outputPath: '/assets/fonts'
+                        }
                     }
                 ]
             }
