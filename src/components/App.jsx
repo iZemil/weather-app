@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Icon, Input, Button } from 'semantic-ui-react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import Loader from './Loader';
-import './app.scss';
+import { Icon, Input, Button } from 'semantic-ui-react';
 
+
+@inject('appStore')
 @observer
 export default class App extends Component {
     componentDidMount() {

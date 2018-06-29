@@ -1,9 +1,9 @@
-import { observable, computed } from 'mobx';
+import { observable, computed, action, decorate } from 'mobx';
 import {currentWeatherByCity, currentWeatherByCoordinates} from "../api/weather";
 
 
 class AppStore {
-    @observable state = {
+    state = {
         searchCity: '',
         currentCity: '',
         lat: '',
@@ -11,9 +11,9 @@ class AppStore {
         weather: null,
         isFetching: false
     };
-    @observable cities = JSON.parse(localStorage.getItem('owm_cities')) || [];
+    cities = JSON.parse(localStorage.getItem('owm_cities')) || [];
 
-    @computed get temperature() {
+    get temperature() {
         return this.state.weather ? Math.round(this.state.weather.temp) : '–';
     }
 
@@ -91,7 +91,18 @@ class AppStore {
     }
 }
 
+export default decorate(AppStore, {
+    state: observable,
+    cities: observable,
+    temperature: computed,
+    searchCity: action,
+    mountApp: action,
+    setCurrentPosition: action,
+    getForecast: action,
+    setWeather: action,
+    addCity: action,
+    deleteCity: action,
+    toggleFetching: action,
+    notFound: action,
 
-const appStore = new AppStore();
-
-export default appStore;
+});
