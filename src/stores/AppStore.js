@@ -26,16 +26,19 @@ class AppStore {
         if(this.weather) {
             switch (this.unit) {
                 case 'C':
-                    return this.weather.temp + 'C°';
+                    return Math.round(this.weather.temp) + 'C°';
                 case 'K':
-                    return this.kelvin + 'K°';
+                    return Math.round(this.kelvin) + 'K°';
                 case 'F':
-                    return this.fahrenheit + 'F°';
+                    return Math.round(this.fahrenheit) + 'F°';
             }
         } else {
             return '—';
         }
-        return this.weather ? Math.round(this.weather.temp) : '—';
+    }
+
+    changeUnit(unit) {
+        return this.unit = unit;
     }
 
     searchCity(city) {
@@ -130,6 +133,9 @@ export default decorate(AppStore, {
     state: observable,
     cities: observable,
     temperature: computed,
+    fahrenheit: computed,
+    kelvin: computed,
+    changeUnit: action,
     searchCity: action,
     mountApp: action,
     setCurrentPosition: action,

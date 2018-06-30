@@ -10,7 +10,13 @@ body {
 }
 
 .app {
-  padding: 40px 20px;
+  padding: 60px 20px 40px;
+
+  &__settings {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
 }
 
 .container {
