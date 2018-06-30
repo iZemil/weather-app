@@ -39875,7 +39875,11 @@ body.pushable > .pusher {
   cursor: default; }
 
 .app {
-  padding: 40px 20px; }
+  padding: 60px 20px 40px; }
+  .app__settings {
+    position: absolute;
+    top: 15px;
+    right: 15px; }
 
 .container {
   max-width: 980px;
@@ -39902,7 +39906,7 @@ body.pushable > .pusher {
       align-items: center;
   border: 35px solid #faffe3;
   border-radius: 100%;
-  font-size: 80px;
+  font-size: 55px;
   background-color: #c1e040;
   background-image: linear-gradient(to bottom, #c1e040 0%, #eec933 100%);
   color: #fff; }
@@ -39942,3 +39946,5 @@ body.pushable > .pusher {
     transform: rotate(0deg); }
   100% {
     transform: rotate(360deg); } }
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzdHlsZXMuY3NzIiwic291cmNlUm9vdCI6IiJ9*/
