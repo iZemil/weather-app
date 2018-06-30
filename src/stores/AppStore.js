@@ -3,32 +3,54 @@ import {currentWeatherByCity, currentWeatherByCoordinates} from "../api/weather"
 
 
 class AppStore {
-    state = {
-        searchCity: '',
-        currentCity: '',
+    unit = 'C';
+    currentCity = '';
+    searchingCity = '';
+    coords = {
         lat: '',
-        lon: '',
-        weather: null,
-        isFetching: false
+        lon: ''
     };
-    cities = JSON.parse(localStorage.getItem('owm_cities')) || [];
+    isFetching = null;
+    weather = null;
+    cities = [];
+
+    get fahrenheit() {
+        return this.weather.temp + 273.15;
+    }
+
+    get kelvin() {
+        return this.weather.temp * 9/5 + 32;
+    }
 
     get temperature() {
-        return this.state.weather ? Math.round(this.state.weather.temp) : '–';
+        if(this.weather) {
+            switch (this.unit) {
+                case 'C':
+                    return this.weather.temp + 'C°';
+                case 'K':
+                    return this.kelvin + 'K°';
+                case 'F':
+                    return this.fahrenheit + 'F°';
+            }
+        } else {
+            return '—';
+        }
+        return this.weather ? Math.round(this.weather.temp) : '—';
     }
 
     searchCity(city) {
-        this.state.isFetching = false;
-        this.state.currentCity = city || this.state.searchCity;
-        city = city || this.state.currentCity;
+        this.isFetching = false;
+        this.currentCity = city || this.searchingCity;
 
-        fetch(currentWeatherByCity(city))
+        fetch(currentWeatherByCity(this.currentCity))
             .then((res) => res.json())
             .then((json) => this.setWeather(json))
             .catch((err) => console.error('searchCity: ', err));
     }
 
     mountApp() {
+        this.cities = JSON.parse(localStorage.getItem('owm_cities')) || [];
+
         navigator.geolocation.getCurrentPosition((position) => {
             this.setCurrentPosition(position.coords);
         }, (error) => {
@@ -39,11 +61,16 @@ class AppStore {
     }
 
     setCurrentPosition(coords) {
-        this.state.isFetching = false;
-        this.state.lat = coords.latitude;
-        this.state.lon = coords.longitude;
+        const lat = coords.latitude;
+        const lon = coords.longitude;
 
-        fetch(currentWeatherByCoordinates(this.state.lat, this.state.lon))
+        this.isFetching = false;
+        this.coords = {
+            lat,
+            lon,
+        };
+
+        fetch(currentWeatherByCoordinates(lat, lon))
             .then((res) => res.json())
             .then((json) => this.setWeather(json))
             .catch((err) => {
@@ -53,36 +80,38 @@ class AppStore {
     }
 
     getForecast(city) {
-        this.state.isFetching = false;
+        this.isFetching = false;
+
         this.searchCity(city);
     }
 
     setWeather(json) {
-        this.state.currentCity = json.name;
-        this.state.weather = json.main;
+        this.currentCity = json.name;
+        this.weather = json.main;
+        this.celsius = json.main.temp;
 
         this.toggleFetching();
     }
 
     notFound() {
-        this.state.currentCity = 'Not found';
+        this.currentCity = 'Not found';
 
         this.toggleFetching();
     }
 
     toggleFetching() {
-        setTimeout(() => this.state.isFetching = true, 1000);
+        setTimeout(() => this.isFetching = true, 1000);
     }
 
 
-    addCity() {
-        if(~this.cities.indexOf(this.state.currentCity)) {
-            return false;
+    toggleFavoriteCity() {
+
+        if(this.cities.includes(this.currentCity)) {
+            this.cities = this.cities.filter(city => city !== this.currentCity);
+        } else {
+            this.cities.push(this.currentCity);
+            localStorage.setItem('owm_cities', JSON.stringify(this.cities));
         }
-
-
-        this.cities.push(this.state.currentCity);
-        localStorage.setItem('owm_cities', JSON.stringify(this.cities));
     }
 
     deleteCity(city) {
@@ -92,6 +121,12 @@ class AppStore {
 }
 
 export default decorate(AppStore, {
+    unit: observable,
+    currentCity: observable,
+    searchingCity: observable,
+    coords: observable,
+    isFetching: observable,
+    weather: observable,
     state: observable,
     cities: observable,
     temperature: computed,

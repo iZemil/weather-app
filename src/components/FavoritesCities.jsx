@@ -10,7 +10,7 @@ function FavoritesCities({appStore}) {
             {
                 appStore.cities.map((city, index) =>
                     <li key={ 'key-' + index } className="cities-list__item">
-                        <span className="cities-list__item-name">– { city }</span>
+                        <span className="cities-list__item-name">– {city}</span>
                         <span className="cities-list__item-utils">
                             <Icon
                                 name="search"

@@ -11,8 +11,8 @@ function SearchCity({appStore}) {
                 placeholder="Write city name..."
                 name="city"
                 className="city-form__input"
-                value={appStore.state.searchCity}
-                onChange={(e) => appStore.state.searchCity = e.target.value}
+                value={appStore.searchingCity}
+                onChange={(e) => appStore.searchingCity = e.target.value}
             />
             <Button className="btn" onClick={() => appStore.searchCity()}>Search</Button>
         </div>
