@@ -14,6 +14,9 @@ module.exports = {
     },
 
     devtool: 'inline-source-map',
+    devServer: {
+        contentBase: path.join(__dirname, 'public')
+    },
 
     resolve: {
         extensions: ['.js', '.jsx'],
@@ -39,10 +42,7 @@ module.exports = {
                 test: /\.(jpg|png|gif|svg)$/,
                 use: [
                     {
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: '/assets/images'
-                        }
+                        loader: 'file-loader'
                     }
                 ]
             },
@@ -51,10 +51,7 @@ module.exports = {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 use: [
                     {
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: '/assets/fonts'
-                        }
+                        loader: 'file-loader'
                     }
                 ]
             }
